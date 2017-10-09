@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.cells path {
+  fill: none;
+  pointer-events: all;
+}
+
+.cells :hover circle {
+  fill: red;
+}
+
+</style>
+
+<head>
+    <title>dc.js - Dimensional Charting Javascript Library</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+  <script type="text/javascript" src="src/d3/d3.min.js"></script>
+  <script type="text/javascript" src="src/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="src/tabletop.js"></script>
+  <script type="text/javascript" src="src/bees.js"></script>
+  <script type="text/javascript">
+  data = [{id:"aa", value:3},
+          {id:"bb", value:54},
+          {id:"bb", value:345},
+          {id:"bc", value:45},
+          {id:"bs", value:5},
+          {id:"br", value:43},
+          {id:"b2", value:234},
+          {id:"bg", value:144},
+        ]
+  </script>
+
+</body>
+
+</html>
