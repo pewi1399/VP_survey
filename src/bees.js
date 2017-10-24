@@ -37,7 +37,7 @@ drawDots = function(data, id){
 
   var formatValue = d3.format(",d");
 
-  var x = d3.scaleLog()
+  var x = d3.scaleLinear()
       .rangeRound([0, width]);
 
   x.domain(d3.extent(data, function(d) { return d.value; }));
@@ -55,7 +55,7 @@ drawDots = function(data, id){
   g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).ticks(20, ".0s"));
+      .call(d3.axisBottom(x))//.ticks(20, ".0s"));
 
   var cell = g.append("g")
       .attr("class", "cells")
