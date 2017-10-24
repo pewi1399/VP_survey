@@ -24,8 +24,8 @@
 }
 
 img{
-  max-width:70%;
-  max-height:70%;
+  max-width:75%;
+  max-height:75%;
 }
 
 </style>
@@ -42,10 +42,16 @@ img{
   <script type="text/javascript" src="src/tabletop.js"></script>
   <script type="text/javascript" src="src/fullPage.js-master/vendors/scrolloverflow.js"></script>
   <script type="text/javascript" src="src/fullPage.js-master/jquery.fullPage.js"></script>
+  <script src="data/coindata.js"></script>
+  <script src="data/lakedata.js"></script>
+  <script src="data/wardata.js"></script>
 
   <link href = "src/bootstrap.3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="src/fullPage.js-master/jquery.fullPage.css" />
   <link rel="stylesheet" type="text/css" href="src/fullPage.js-master/examples/examples.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
 
   <!-- PM fonter etc -->
 	<link rel="stylesheet" href="https://www.pensionsmyndigheten.se/etc/clientlibs/pm-framework.40433ce8c29a09bb9496c4a6c555bd77.css" type="text/css">
@@ -67,10 +73,34 @@ img{
     afterLoad: function(anchorLink, index){
         console.log('===============');
         console.log("afterLoad--" + "anchorLink: " + anchorLink + " index: " + index );
-        window.index = index
+        window.index = index;
+        if(index == 1){
+          drawDots(lakedata, "guess_lake")
+        }else if(index == 2){
+          bitDrawer(coindata)
+        }else if(index == 3){
+
+          var format = d3.format(",d");
+
+          d3.select("#span_war")
+            .transition()
+              .duration(20000)
+              .on("start", function repeat() {
+                d3.active(this)
+                    .tween("text", function() {
+                      var that = d3.select(this),
+                          i = d3.interpolateNumber(that.text().replace(/,/g, ""), 484);
+                      return function(t) { that.text(format(i(t))); };
+                    })
+                  });
+
+          drawDots(wardata, "guess_war")
+        }
+
     }
   });
 });
+
   data = [{id:"aa", value:3},
           {id:"bb", value:54},
           {id:"bb", value:345},
@@ -88,55 +118,37 @@ img{
         <div class="col-md-10 col-md-offset-1" id = "ans_lake">
           <img src="lake_png.png" />
         </div>
+    <div class="col-md-10 col-md-offset-1" id = "text_lake">
+          <p> 586 270  * 3.2 = 1 876 064 </p>
+        </div> 
         <div class="col-md-10 col-md-offset-1" id = "guess_lake">
-          Panel 2
         </div>
     </div>
   </div>
   <div class="section", id="section1">
     <div class="row">
-        <div class="col-md-7 col-md-offset-2" id = "ans_bitcoin">
-          Panel 3
+        <div class="col-md-10 col-md-offset-1" id = "ans_bitcoin">
         </div>
     </div>
   </div>
   <div class="section", id="section2">
     <div class="row">
-        <div class="col-md-7 col-md-offset-2" id = "ans_war">
-          Panel 5
+        <div class="col-md-10 col-md-offset-1" id = "ans_war">
           <h1>Antal födda 1915 eller tidigare: <span id = "span_war"> 0 </span></h1>
         </div>
-        <div class="col-md-2" id = "guess_war">
-          Panel 6
+        <div class="col-md-10 col-md-offset-1" id = "guess_war">
         </div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript" src="src/bees.js"></script>
-<script type="text/javascript" src="src/counter.js"></script>
+<script type="text/javascript" src="src/bitcoin.js"></script>
 
 <script>
 drawer(data, "guess_lake")
 drawer(data, "guess_war")
 
-
-index.
-
-d3.select("#span_war")
-  .transition()
-    .duration(6000)
-    .on("start", function repeat() {
-      d3.active(this)
-          .tween("text", function() {
-            var that = d3.select(this),
-                i = d3.interpolateNumber(that.text().replace(/,/g, ""), Math.random() * 100);
-            return function(t) { that.text(format(i(t))); };
-          })
-        //.transition()
-          //.delay(1500)
-          //.on("start", repeat);
-    });
 </script>
 
 </body>

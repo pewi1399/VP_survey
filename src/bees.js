@@ -69,6 +69,7 @@ drawDots = function(data, id){
       .attr("r", 3)
       .attr("cy", 1000)
       .transition()
+      .delay(20000)
       .duration(1500)
       .attr("cx", function(d) { return d.data.x; })
       .attr("cy", function(d) { return d.data.y; });
@@ -79,13 +80,14 @@ drawDots = function(data, id){
   cell.append("title")
       .text(function(d) { return d.data.id + "\n" + formatValue(d.data.value); });
 
-    var mean = 25
+    var mean = d3.mean(data, function(d) { return d.value; })
 
     g.append("text")
     .style("stroke", "none")
     .attr("y", 300)
     .attr("x", x(mean))
     .transition()
+    .delay(21000)
     .duration(3000)
     .style("stroke", "black")
     .attr("y", 75)
