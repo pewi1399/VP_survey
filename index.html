@@ -23,19 +23,54 @@
   fill: red;
 }
 
+img{
+  max-width:70%;
+  max-height:70%;
+}
+
 </style>
 
 <head>
-    <title>dc.js - Dimensional Charting Javascript Library</title>
+    <title>VP undersökning</title>
     <meta charset="UTF-8">
 </head>
 
 <body>
   <script type="text/javascript" src="src/d3/d3.min.js"></script>
   <script type="text/javascript" src="src/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="src/bootstrap.3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="src/tabletop.js"></script>
-  <script type="text/javascript" src="src/bees.js"></script>
+  <script type="text/javascript" src="src/fullPage.js-master/vendors/scrolloverflow.js"></script>
+  <script type="text/javascript" src="src/fullPage.js-master/jquery.fullPage.js"></script>
+
+  <link href = "src/bootstrap.3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="src/fullPage.js-master/jquery.fullPage.css" />
+  <link rel="stylesheet" type="text/css" href="src/fullPage.js-master/examples/examples.css" />
+
+  <!-- PM fonter etc -->
+	<link rel="stylesheet" href="https://www.pensionsmyndigheten.se/etc/clientlibs/pm-framework.40433ce8c29a09bb9496c4a6c555bd77.css" type="text/css">
+	<script type="text/javascript" src="https://www.pensionsmyndigheten.se/etc/clientlibs/pm-modernizr.319f35cfb78f704d1547680c7318ead7.js"></script>
+	<link rel="stylesheet" href="https://www.pensionsmyndigheten.se/etc/clientlibs/pm-mainsite.f69f79a0acf3afa62dce624d26d560d7.css" type="text/css">
+
+
+
   <script type="text/javascript">
+  $(document).ready(function() {
+    $('#fullpage').fullpage({
+      anchors: ['1/12', '2/12', '3/12'],
+      //sectionsColor: ['whitesmoke', 	'#E8E8E8', 'whitesmoke'],
+    keyboardScrolling: true,
+    navigation: true,
+    navigationPosition: 'bottom',
+    slidesNavPosition: 'bottom',
+    navigationTooltips: ['Fråga 1', 'Fråga 2', 'Fråga 3'],
+    afterLoad: function(anchorLink, index){
+        console.log('===============');
+        console.log("afterLoad--" + "anchorLink: " + anchorLink + " index: " + index );
+        window.index = index
+    }
+  });
+});
   data = [{id:"aa", value:3},
           {id:"bb", value:54},
           {id:"bb", value:345},
@@ -47,6 +82,60 @@
         ]
   </script>
 
-</body>
+<div id="fullpage">
+  <div class="section active", id="section0">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" id = "ans_lake">
+          <img src="lake_png.png" />
+        </div>
+        <div class="col-md-10 col-md-offset-1" id = "guess_lake">
+          Panel 2
+        </div>
+    </div>
+  </div>
+  <div class="section", id="section1">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-2" id = "ans_bitcoin">
+          Panel 3
+        </div>
+    </div>
+  </div>
+  <div class="section", id="section2">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-2" id = "ans_war">
+          Panel 5
+          <h1>Antal födda 1915 eller tidigare: <span id = "span_war"> 0 </span></h1>
+        </div>
+        <div class="col-md-2" id = "guess_war">
+          Panel 6
+        </div>
+    </div>
+  </div>
+</div>
 
+<script type="text/javascript" src="src/bees.js"></script>
+<script type="text/javascript" src="src/counter.js"></script>
+
+<script>
+drawer(data, "guess_lake")
+drawer(data, "guess_war")
+
+
+d3.select("#span_war")
+  .transition()
+    .duration(6000)
+    .on("start", function repeat() {
+      d3.active(this)
+          .tween("text", function() {
+            var that = d3.select(this),
+                i = d3.interpolateNumber(that.text().replace(/,/g, ""), Math.random() * 100);
+            return function(t) { that.text(format(i(t))); };
+          })
+        //.transition()
+          //.delay(1500)
+          //.on("start", repeat);
+    });
+</script>
+
+</body>
 </html>

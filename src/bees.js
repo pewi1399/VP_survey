@@ -1,12 +1,14 @@
 
-drawer = function(data){
-  var svg = d3.select("body")
-              .append("svg")
-              .attr("width",960)
-              .attr("height",200),
-      margin = {top: 40, right: 40, bottom: 40, left: 40},
-      width = svg.attr("width") - margin.left - margin.right,
-      height = svg.attr("height") - margin.top - margin.bottom;
+drawer = function(data, id){
+  var margin = {top: 10, right: 10, bottom: 10, left: 10},
+      width = 600 - margin.left - margin.right,
+      height = 150 - margin.top - margin.bottom,
+      svg = d3.select("#" + id)
+                 .append("svg")
+                 .attr("preserveAspectRatio", "xMinYMin meet")
+                 .attr("viewBox","0 5 " + (width + 50)  + " " + (height+50))
+                   //class to make it responsive
+                 .classed("svg-content-responsive", true);
 
   var formatValue = d3.format(",d");
 
@@ -14,7 +16,29 @@ drawer = function(data){
       .rangeRound([0, width]);
 
   var g = svg.append("g")
+      .attr("class", id)
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  x.domain(d3.extent(data, function(d) { return d.value; }));
+
+
+    //.html(&#x3BC);
+
+}
+//function type(d) {
+//  if (!d.value) return;
+//  d.value = +d.value;
+//  return d;
+//}
+drawDots = function(data, id){
+  var margin = {top: 10, right: 10, bottom: 10, left: 10},
+      width = 600 - margin.left - margin.right,
+      height = 150 - margin.top - margin.bottom;
+
+  var formatValue = d3.format(",d");
+
+  var x = d3.scaleLog()
+      .rangeRound([0, width]);
 
   x.domain(d3.extent(data, function(d) { return d.value; }));
 
@@ -24,7 +48,9 @@ drawer = function(data){
       .force("collide", d3.forceCollide(4))
       .stop();
 
-  for (var i = 0; i < 6; ++i) simulation.tick();
+  for (var i = 0; i < 20; ++i) simulation.tick();
+
+  var g = d3.select("." + id)
 
   g.append("g")
       .attr("class", "axis axis--x")
@@ -56,14 +82,12 @@ drawer = function(data){
     var mean = 25
 
     g.append("text")
+    .style("stroke", "none")
+    .attr("y", 300)
+    .attr("x", x(mean))
+    .transition()
+    .duration(3000)
     .style("stroke", "black")
-    .attr("cx", x(mean))
-    .attr("cy", 38)
-    .text("gg");
-
+    .attr("y", 75)
+    .text('μ');
 }
-//function type(d) {
-//  if (!d.value) return;
-//  d.value = +d.value;
-//  return d;
-//}
