@@ -79,6 +79,10 @@ img{
           drawDots(lakedata, "guess_lake")
         }else if(index == 2){
           bitDrawer(coindata)
+          svg.on("click", function(){
+            starter()
+          })
+          //starter()
         }else if(index == 3){
 
           var format = d3.format(",d");

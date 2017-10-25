@@ -391,3 +391,7 @@ svg.append("g")
 // end of beeswarm
 
 }
+
+function starter(){
+  setTimeout(showInfo(), 8000)
+}
