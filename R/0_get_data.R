@@ -20,3 +20,10 @@ wardata <-
   select(id, value)
 
 writeLines(paste0("var wardata = ", toJSON(wardata)), "data/wardata.js")
+
+data  <- openxlsx::read.xlsx("data/bitcoin.xlsx")
+names(data) <- c("Date", "ClosePrice", "Name")
+head(data)
+data$Date <- gsub("'", "", data$Date)
+
+writeLines(paste0("var coinguess = ", toJSON(data)), "data/coinguessdata.js")
