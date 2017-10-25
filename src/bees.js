@@ -1,8 +1,8 @@
 
 drawer = function(data, id){
-  var margin = {top: 10, right: 10, bottom: 10, left: 10},
+  var margin = {top: 5, right: 10, bottom: 10, left: 10},
       width = 600 - margin.left - margin.right,
-      height = 150 - margin.top - margin.bottom,
+      height = 120 - margin.top - margin.bottom,
       svg = d3.select("#" + id)
                  .append("svg")
                  .attr("preserveAspectRatio", "xMinYMin meet")

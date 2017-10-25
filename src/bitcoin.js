@@ -1,7 +1,7 @@
 bitDrawer = function(coindata){
   var margin = {top: 33, left: 50, right: 30, bottom: 75},
-      width  = 960 - margin.left - margin.right,
-      height = 650  - margin.top  - margin.bottom;
+      width  = 660 - margin.left - margin.right,
+      height = 375  - margin.top  - margin.bottom;
 
   var forecast_horizon = 30
 
@@ -347,7 +347,7 @@ svg.append("g")
 
 svg.append("g")
     .attr("class", "infowin")
-    .attr("transform", "translate(200, 50)")
+    .attr("transform", "translate(300, 50)")
     .append("text")
     .attr("id","forecastText");
 
